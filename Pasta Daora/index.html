@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reset.css">
+    <title>Carrossel de Img</title>
+</head>
+<body>
+    <header class="header">
+        <div class="info">
+            <p id="infoTexto"></p>
+        </div>
+        <div class="botao">
+            <button id="anterior">Anterior</button>
+            <button id="proximo">Proxima</button>
+        </div>
+    </header>
+    <div class="carrossel">
+        <img id="carrosselImagem" src="" alt="Imagem do Carrossel">
+    </div>
+   
+    
+    <script>
+        let imgIndice = 0;
+        const IMAGENS = ['image1.png', 'image2.png', 'image3.png', 'image4.png'];
+        const INFORMACOES = [
+            "Ele luta usando sua concha em seu estômago. Em resposta a um ataque, ele retalia imediatamente com sua concha.",
+            "O treinamento rigoroso é como ele aprende sua técnica fluida de double-scalchop.",
+            "No tempo que um inimigo leva para piscar, ele pode sacar e embainhar os seatars presos às suas patas dianteiras.",
+            "De coração duro e hábil com a lâmina, esta forma rara de Samurott é um produto da evolução do Pokémon na região de Hisui. Seus golpes turbulentos atingem os inimigos como ondas incessantes."
+        ];
+    
+        const prevButton = document.getElementById('anterior');
+        const nextButton = document.getElementById('proximo');
+        const IMG = document.getElementById('carrosselImagem');
+        const infoTexto = document.getElementById('infoTexto');
+    
+        function carregar() {
+            IMG.style.opacity = 0;
+            fadeIn();
+            IMG.src = IMAGENS[imgIndice];
+            infoTexto.textContent = INFORMACOES[imgIndice]; // Atualiza o texto da informação
+        }
+    
+        function fadeIn() {
+            let opacidade = 0;
+    
+            const fadeInterval = setInterval(() => {
+                opacidade += 0.03;
+                IMG.style.opacity = opacidade;
+                infoTexto.style.opacity = opacidade;
+    
+                if (opacidade >= 1) {
+                    clearInterval(fadeInterval);
+                }
+            }, 20);
+        }
+    
+        prevButton.addEventListener('click', () => {
+            if (imgIndice > 0) {
+                --imgIndice;
+                carregar();
+            }
+        });
+    
+        nextButton.addEventListener('click', () => {
+            const limite = IMAGENS.length - 1;
+            if (imgIndice < limite) {
+                ++imgIndice;
+                carregar();
+            }
+        });
+    
+        carregar();
+    </script>
+    
+</body>
+</html>
